@@ -10,6 +10,7 @@ function App() {
     .then((response) => response.json())
     .then((json) => setProducts(json));
   })
+
   return (
     <div className="App">
       <header className="App-header">
