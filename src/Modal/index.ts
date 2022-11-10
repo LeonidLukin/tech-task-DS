@@ -1,1 +1,0 @@
-export { AddBtnTitle } from './Modal.styled'
