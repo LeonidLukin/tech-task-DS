@@ -1,0 +1,1 @@
+export { HeaderComp, Wrapper } from './Header.styled';

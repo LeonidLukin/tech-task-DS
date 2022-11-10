@@ -1,12 +1,12 @@
+import Header from './Header/Header';
 import UsersTable from './UsersTable';
 
-function App() {
+export default function App() {
 
   return (
     <div className="App">
+      <Header/>
       <UsersTable/>
     </div>
   );
 }
-
-export default App;
