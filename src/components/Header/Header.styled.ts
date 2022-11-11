@@ -10,5 +10,6 @@ export const HeaderComp = styled.header`
 `
 export const Wrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 `

@@ -1,52 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
 import Loader from '../Loader';
 import EndMessege from '../EndMessege';
 
-const API_URL = 'https://636bd1aa7f47ef51e13b4541.mockapi.io/api';
+import { AppDispatch, RootState } from '../../redux/store';
+import { fetchUsers } from '../../redux/usersOperation';
+import { User } from '../../redux/usersSlice';
 
 export default function UsersTable() {
-    const [users, setUsers] = useState<any>([]);
-    const [noMore, setnoMore] = useState(true);
-    const [page, setPage] = useState(2);
-
+    const dispatch = useDispatch<AppDispatch>();
+    const users = useSelector((state: RootState) => state.users.items);
+    const page = useSelector((state: RootState) => state.users.page);
+    const isLastPage = useSelector((state: RootState) => state.users.isLastPage);
+    
   useEffect(() => {
-    fetchUsers().then((data) => setUsers(data))
-  }, []);
+    dispatch(fetchUsers(page));
+  }, [dispatch]);
 
-  const fetchUsers = async (page:number = 1) => {
-    try {
-        const res = await fetch(`${API_URL}/users?page=${page}&limit=20`);
-        const data = await res.json();
-        return data
-    } catch(e) {
-        console.error(`Error in the fetchUsers method`, e);
-    }
+  const loadNextPage = () => {
+    dispatch(fetchUsers(page));
   };
 
-  const fetchData = async () => {
-    const usersFormServe = await fetchUsers(page);
-
-    setUsers([...users, ...usersFormServe]);
-    if (usersFormServe.length === 0 || usersFormServe.length < 20) {
-        setnoMore(false);
-    }
-    setPage(page + 1)
-  };
-
-  let sortedUsers = [...users].sort((a: any, b: any) => b.id - a.id);
+  let sortedUsers = [...users].sort((a: User, b: User) => Number(b.id) - Number(a.id));
 
   return (
     <TableContainer component={Paper}>
         <InfiniteScroll
-            dataLength={users.length} //This is important field to render the next data
-            next={fetchData}
-            hasMore={noMore}
+            dataLength={sortedUsers.length}
+            next={loadNextPage}
+            hasMore={!isLastPage}
             loader={<Loader/>}
             endMessage={<EndMessege/>}
         >
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }} aria-label="Users table">
                 <TableHead>
                     <TableRow>
                         <TableCell align="right">First name</TableCell>
@@ -58,20 +46,21 @@ export default function UsersTable() {
                 </TableHead>
                 <TableBody>
 
-                {sortedUsers.map(({firstName, id, lastName, phoneNumber, city, email}:any) => (
-                    <TableRow
-                        key={id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                        <TableCell component="th" scope="row">
-                            {firstName}
-                        </TableCell>
-                        <TableCell align="right">{lastName}</TableCell>
-                        <TableCell align="right">{phoneNumber}</TableCell>
-                        <TableCell align="right">{city}</TableCell>
-                        <TableCell align="right">{email}</TableCell>
-                    </TableRow>
-                ))}
+                {sortedUsers.map((user:User) => {
+                    const {firstName, id, lastName, phoneNumber, city, email} = user;
+                    return (
+                        <TableRow
+                            key={id}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row">{firstName}</TableCell>
+                            <TableCell align="right">{lastName}</TableCell>
+                            <TableCell align="right">{phoneNumber}</TableCell>
+                            <TableCell align="right">{city}</TableCell>
+                            <TableCell align="right">{email}</TableCell>
+                        </TableRow>
+                    )
+                })}
                 </TableBody>
             </Table>
         </InfiniteScroll>
