@@ -1,12 +1,15 @@
 import {HeaderComp, Wrapper } from './index';
 
 import AddUserModal from '../AddUserModal/AddUserModal';
+import { Typography } from '@mui/material';
 
 export default function Header() {
     return (
         <HeaderComp>
             <Wrapper>
-                <h1>Hello</h1>
+            <Typography variant="h3" component="h2">
+                Tech task for DS
+            </Typography>
                 <AddUserModal />
             </Wrapper>
         </HeaderComp>
