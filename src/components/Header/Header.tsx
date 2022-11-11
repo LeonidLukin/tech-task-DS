@@ -1,6 +1,6 @@
 import {HeaderComp, Wrapper } from './index';
 
-import AddUserModal from '../AddUserModal/AddUserModal';
+import AddUserModal from '../AddUserModal';
 import { Typography } from '@mui/material';
 
 export default function Header() {

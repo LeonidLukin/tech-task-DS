@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
-import Loader from '../Loader/Loader'
-import EndMessege from '../EndMessege/EndMessege';
+import Loader from '../Loader/Loader';
+import EndMessege from '../EndMessege';
 
 const API_URL = 'https://636bd1aa7f47ef51e13b4541.mockapi.io/api';
 
@@ -12,22 +12,21 @@ export default function UsersTable() {
     const [page, setPage] = useState(2);
 
   useEffect(() => {
-    const getUsers = async () => {
-        const res = await fetch(`${API_URL}/users?page=1&limit=20`);
-        const data = await res.json();
-        setUsers(data)
-    }
-    getUsers();
+    fetchUsers().then((data) => setUsers(data))
   }, []);
 
-  const fetchUsers = async () => {
-    const res = await fetch(`${API_URL}/users?page=${page}&limit=20`);
-    const data = await res.json();
-    return data
+  const fetchUsers = async (page:number = 1) => {
+    try {
+        const res = await fetch(`${API_URL}/users?page=${page}&limit=20`);
+        const data = await res.json();
+        return data
+    } catch(e) {
+        console.error(`Error in the fetchUsers method`, e);
+    }
   }
 
   const fetchData = async () => {
-    const usersFormServe = await fetchUsers();
+    const usersFormServe = await fetchUsers(page);
 
     setUsers([...users, ...usersFormServe]);
     if (usersFormServe.length === 0 || usersFormServe.length < 20) {
@@ -35,6 +34,8 @@ export default function UsersTable() {
     }
     setPage(page + 1)
   }
+
+
   return (
     <TableContainer component={Paper}>
         <InfiniteScroll
