@@ -7,4 +7,4 @@ export default function LinearIndeterminate() {
       <LinearProgress />
     </Box>
   );
-}
+};

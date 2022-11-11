@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material/';
-import Loader from '../Loader/Loader';
+import Loader from '../Loader';
 import EndMessege from '../EndMessege';
 
 const API_URL = 'https://636bd1aa7f47ef51e13b4541.mockapi.io/api';
@@ -23,7 +23,7 @@ export default function UsersTable() {
     } catch(e) {
         console.error(`Error in the fetchUsers method`, e);
     }
-  }
+  };
 
   const fetchData = async () => {
     const usersFormServe = await fetchUsers(page);
@@ -33,8 +33,9 @@ export default function UsersTable() {
         setnoMore(false);
     }
     setPage(page + 1)
-  }
+  };
 
+  let sortedUsers = [...users].sort((a: any, b: any) => b.id - a.id);
 
   return (
     <TableContainer component={Paper}>
@@ -57,7 +58,7 @@ export default function UsersTable() {
                 </TableHead>
                 <TableBody>
 
-                {users.map(({firstName, id, lastName, phoneNumber, city, email}:any) => (
+                {sortedUsers.map(({firstName, id, lastName, phoneNumber, city, email}:any) => (
                     <TableRow
                         key={id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -76,4 +77,4 @@ export default function UsersTable() {
         </InfiniteScroll>
     </TableContainer>
   );
-}
+};

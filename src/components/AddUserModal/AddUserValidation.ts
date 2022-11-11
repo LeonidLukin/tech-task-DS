@@ -13,7 +13,7 @@ export const firstNameValidation = {
         }
         return true
     }
-}
+};
 
 export const lastNameValidation = {
     required: REQUIRED_FIELD,
@@ -23,7 +23,7 @@ export const lastNameValidation = {
         }
         return true
     }
-}
+};
 
 export const emailValidation = {
     required: REQUIRED_FIELD,
@@ -33,4 +33,4 @@ export const emailValidation = {
         }
         return true
     }
-}
+};

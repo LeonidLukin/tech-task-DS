@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid'
+import { nanoid } from 'nanoid';
 import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
 import { 
   Box, 
@@ -12,7 +12,8 @@ import {
 } from '@mui/material';
 import { useForm, Controller, SubmitHandler, useFormState } from "react-hook-form";
 import { AddBtnTitle } from './index';
-import { firstNameValidation, lastNameValidation, emailValidation } from './AddUserValidation'
+import { firstNameValidation, lastNameValidation, emailValidation } from './AddUserValidation';
+
 interface User {
   firstName: string;
   lastName: string;
@@ -20,7 +21,9 @@ interface User {
   city: string;
   phoneNumber: string;
 }
+
 const API_URL = 'https://636bd1aa7f47ef51e13b4541.mockapi.io/api';
+
 export default function AddUserModal() {
   const [open, setOpen] = useState(false);
   
@@ -40,7 +43,8 @@ export default function AddUserModal() {
     })
       .then((response) => response.json())
       .then((json) => console.log(json));
-  }
+  };
+
   const onSubmit: SubmitHandler<User> = (data) => {
     addUser(data)
     setOpen(false)
@@ -169,4 +173,4 @@ export default function AddUserModal() {
       </Dialog>
     </>
   );
-}
+};
