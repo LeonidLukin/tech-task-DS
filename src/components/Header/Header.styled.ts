@@ -7,6 +7,9 @@ export const HeaderComp = styled.header`
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
     color: #0e1d27;
+    h2 {
+        font-weight: 700;
+    }
 `
 export const Wrapper = styled.div`
     display: flex;
