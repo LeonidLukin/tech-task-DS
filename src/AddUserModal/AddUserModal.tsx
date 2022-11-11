@@ -7,12 +7,11 @@ import {
   Dialog, 
   DialogActions, 
   DialogContent, 
-  DialogContentText, 
   DialogTitle 
 } from '@mui/material';
 import { useForm, Controller, SubmitHandler, useFormState } from "react-hook-form";
 import { AddBtnTitle } from './index';
-import { firstNameValidation } from './AddUserValidation'
+import { firstNameValidation, lastNameValidation, emailValidation } from './AddUserValidation'
 interface User{
   firstName: string;
   lastName: string;
@@ -23,38 +22,16 @@ interface User{
 
 export default function AddUserModal() {
   const [open, setOpen] = useState(false);
-  const [fistName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [city, setCity] = useState('');
   
   const { handleSubmit, control } = useForm<User>({
     mode: 'onChange'
 
   });
+
   const { errors} = useFormState({control});
 
   const onSubmit: SubmitHandler<User> = (data) => console.log(data);
 
-  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-  const handlePhoneNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPhoneNumber(event.target.value);
-  };
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
-  };
-  // const handleSubmit = (e:any) => {
-  //   e.preventDefault();
-  // }
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -62,8 +39,6 @@ export default function AddUserModal() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  
 
   return (
     <>
@@ -74,16 +49,15 @@ export default function AddUserModal() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add new user</DialogTitle>
         <DialogContent>
-            <DialogContentText>
             <Box
                 component="form"
                 id="add-user-form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '25ch' },
                 }}
+                noValidate
                 autoComplete="on"
                 onSubmit={handleSubmit(onSubmit)}
-                // onSubmit={handleSubmit}
             >
               <Controller
                 control={control}
@@ -91,8 +65,7 @@ export default function AddUserModal() {
                 name='firstName'
                 render={({ field }) => (
                   <TextField
-                  // onChange={handleFirstNameChange}
-                    autoFocus
+                    required
                     margin="dense"
                     id="fistName"
                     label="First Name"
@@ -100,7 +73,6 @@ export default function AddUserModal() {
                     fullWidth
                     variant="standard"
                     onChange={(e) => field.onChange(e)}
-                    value={ field.value }
                     error={ !!errors.firstName?.message }
                     helperText={ errors.firstName?.message }
                   />      
@@ -109,9 +81,9 @@ export default function AddUserModal() {
               <Controller
                 control={control}
                 name='lastName'
+                rules={ lastNameValidation }
                 render={({ field }) => (
                   <TextField
-                    autoFocus
                     required
                     margin="dense"
                     id="lastName"
@@ -120,16 +92,17 @@ export default function AddUserModal() {
                     fullWidth
                     variant="standard"
                     onChange={(e) => field.onChange(e)}
-                    value={ field.value }
+                    error={ !!errors.lastName?.message }
+                    helperText={ errors.lastName?.message }
                   />      
                 )}
               />
               <Controller
                 control={control}
                 name='email'
+                rules={ emailValidation }
                 render={({ field }) => (
                   <TextField
-                    autoFocus
                     required
                     margin="dense"
                     id="email"
@@ -138,7 +111,8 @@ export default function AddUserModal() {
                     fullWidth
                     variant="standard"
                     onChange={(e) => field.onChange(e)}
-                    value={ field.value }
+                    error={ !!errors.email?.message }
+                    helperText={ errors.email?.message }
                   />      
                 )}
               />
@@ -147,8 +121,6 @@ export default function AddUserModal() {
                 name='phoneNumber'
                 render={({ field }) => (
                   <TextField
-                    autoFocus
-                    required
                     margin="dense"
                     id="phoneNumber"
                     label="Phone Number"
@@ -156,7 +128,6 @@ export default function AddUserModal() {
                     fullWidth
                     variant="standard"
                     onChange={(e) => field.onChange(e)}
-                    value={ field.value }
                   />      
                 )}
               />
@@ -165,8 +136,6 @@ export default function AddUserModal() {
                 name='city'
                 render={({ field }) => (
                   <TextField
-                    autoFocus
-                    required
                     margin="dense"
                     id="city"
                     label="City"
@@ -174,12 +143,10 @@ export default function AddUserModal() {
                     fullWidth
                     variant="standard"
                     onChange={(e) => field.onChange(e)}
-                    value={ field.value }
                   />      
                 )}
               />
             </Box>
-          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
