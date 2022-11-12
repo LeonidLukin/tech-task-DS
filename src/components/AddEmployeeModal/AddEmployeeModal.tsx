@@ -10,24 +10,24 @@ import {
   DialogTitle 
 } from '@mui/material';
 import { useForm, Controller, SubmitHandler, useFormState } from "react-hook-form";
-import { AddBtnTitle } from './index';
-import { firstNameValidation, lastNameValidation, emailValidation } from './AddUserValidation';
-import { User } from '../../redux/usersSlice';
-import { addUser } from '../../redux/usersOperation';
-import { useSelector, useDispatch } from 'react-redux';
+import { BtnTitle } from './index';
+import { firstNameValidation, lastNameValidation, emailValidation } from './AddEmployeeValidation';
+import { Employee } from '../../redux/EmployeesSlice';
+import { addEmployee } from '../../redux/EmployeesOperation';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 
-export default function AddUserModal() {
+export default function AddEmployeeModal() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
-  const { handleSubmit, control } = useForm<User>({
+  const { handleSubmit, control } = useForm<Employee>({
     mode: 'onChange'
   });
   const { errors} = useFormState({control});
 
-  const onSubmit: SubmitHandler<User> = (data) => {
-    dispatch(addUser(data));
+  const onSubmit: SubmitHandler<Employee> = (data) => {
+    dispatch(addEmployee(data));
     setOpen(false);
   };
 
@@ -42,15 +42,15 @@ export default function AddUserModal() {
   return (
     <>
       <Button variant="outlined" onClick={handleClickOpen}>
-        <PersonAddAltSharpIcon/>
-        <AddBtnTitle>Add user</AddBtnTitle>
+        <PersonAddAltSharpIcon sx={{color: '#112b6b'}}/>
+        <BtnTitle>Add employee</BtnTitle>
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add new user</DialogTitle>
+        <DialogTitle>Add new employee</DialogTitle>
         <DialogContent>
             <Box
                 component="form"
-                id="add-user-form"
+                id="add-employee-form"
                 sx={{
                     '& .MuiTextField-root': { m: 1, width: '25ch' },
                 }}
@@ -149,7 +149,7 @@ export default function AddUserModal() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" form="add-user-form">Subscribe</Button>
+          <Button type="submit" form="add-employee-form">Subscribe</Button>
         </DialogActions>
       </Dialog>
     </>

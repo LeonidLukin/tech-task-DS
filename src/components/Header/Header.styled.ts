@@ -6,13 +6,23 @@ export const HeaderComp = styled.header`
     background-color: #ffb347;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-    color: #0e1d27;
-    h2 {
+    color: #112b6b;
+    h1 {
+        display: flex;
+        align-items: center;
         font-weight: 700;
+        text-transform: uppercase;
+        font-size: 20px;
+        svg {
+            margin: 0 0 0 10px;
+            width: 150px;
+            height: 60px;
+        }
     }
 `
 export const Wrapper = styled.div`
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 `

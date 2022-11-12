@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addUser, fetchUsers } from './usersOperation';
+import { addEmployee, fetchEmployees } from './EmployeesOperation';
 
-export interface User {
+export interface Employee {
     id: string, 
     firstName: string,
     lastName: string,
@@ -10,8 +10,8 @@ export interface User {
     phoneNumber: string,
 };
 
-interface UsersState {
-    items: User[],
+interface EmployeesState {
+    items: Employee[],
     loading: 'idle' | 'pending' | 'succeeded' | 'failed',
     page: number,
     isLastPage: boolean,
@@ -22,19 +22,25 @@ const initialState = {
     loading: 'idle',
     page: 1,
     isLastPage: false,
-  } as UsersState;
+  } as EmployeesState;
   
-export const usersSlice = createSlice({
-    name: 'users',
+export const employeesSlice = createSlice({
+    name: 'employees',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchUsers.pending, (state) => {
+        .addCase(fetchEmployees.pending, (state) => {
             state.loading = 'pending';
         })
-        .addCase(fetchUsers.fulfilled, (state, action) => {
-            state.items = state.items.concat(action.payload);
+        .addCase(fetchEmployees.fulfilled, (state, action) => {
+            action.payload.forEach((item) => {
+              const index = state.items.findIndex(prevItem => prevItem.id === item.id);
+              if (index === -1) {
+                state.items.push(item);
+              }
+              state.items[index] = item;
+            })
 
             if (action.payload.length === 0 || action.payload.length < 20) {
                 state.isLastPage = true;
@@ -42,20 +48,19 @@ export const usersSlice = createSlice({
             state.page++;
             state.loading = 'succeeded';
           })
-          .addCase(fetchUsers.rejected, (state) => {
+          .addCase(fetchEmployees.rejected, (state) => {
             state.loading = 'failed';
           })
-          .addCase(addUser.fulfilled, (state, action) => {
+          .addCase(addEmployee.fulfilled, (state, action) => {
             state.items.push(action.payload);
-
             state.loading = 'succeeded';
           })
-          .addCase(addUser.pending, (state) => {
+          .addCase(addEmployee.pending, (state) => {
 
             state.loading = 'pending';
           })
       },
 });
 
-export const {} = usersSlice.actions;
-export default usersSlice.reducer;
+export const {} = employeesSlice.actions;
+export default employeesSlice.reducer;

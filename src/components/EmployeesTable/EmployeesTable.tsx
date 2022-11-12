@@ -6,35 +6,35 @@ import Loader from '../Loader';
 import EndMessege from '../EndMessege';
 
 import { AppDispatch, RootState } from '../../redux/store';
-import { fetchUsers } from '../../redux/usersOperation';
-import { User } from '../../redux/usersSlice';
+import { fetchEmployees } from '../../redux/EmployeesOperation';
+import { Employee } from '../../redux/EmployeesSlice';
 
-export default function UsersTable() {
+export default function EmployeesTable() {
     const dispatch = useDispatch<AppDispatch>();
-    const users = useSelector((state: RootState) => state.users.items);
-    const page = useSelector((state: RootState) => state.users.page);
-    const isLastPage = useSelector((state: RootState) => state.users.isLastPage);
+    const employees = useSelector((state: RootState) => state.employees.items);
+    const page = useSelector((state: RootState) => state.employees.page);
+    const isLastPage = useSelector((state: RootState) => state.employees.isLastPage);
     
   useEffect(() => {
-    dispatch(fetchUsers(page));
+    dispatch(fetchEmployees(page));
   }, [dispatch]);
 
   const loadNextPage = () => {
-    dispatch(fetchUsers(page));
+    dispatch(fetchEmployees(page));
   };
 
-  let sortedUsers = [...users].sort((a: User, b: User) => Number(b.id) - Number(a.id));
+  let sortedEmployees = [...employees].sort((a: Employee, b: Employee) => Number(b.id) - Number(a.id));
 
   return (
     <TableContainer component={Paper}>
         <InfiniteScroll
-            dataLength={sortedUsers.length}
+            dataLength={sortedEmployees.length}
             next={loadNextPage}
             hasMore={!isLastPage}
             loader={<Loader/>}
             endMessage={<EndMessege/>}
         >
-            <Table sx={{ minWidth: 650 }} aria-label="Users table">
+            <Table sx={{ minWidth: 650 }} aria-label="Employees table">
                 <TableHead>
                     <TableRow>
                         <TableCell align="right">First name</TableCell>
@@ -46,8 +46,8 @@ export default function UsersTable() {
                 </TableHead>
                 <TableBody>
 
-                {sortedUsers.map((user:User) => {
-                    const {firstName, id, lastName, phoneNumber, city, email} = user;
+                {sortedEmployees.map((employee:Employee) => {
+                    const {firstName, id, lastName, phoneNumber, city, email} = employee;
                     return (
                         <TableRow
                             key={id}
