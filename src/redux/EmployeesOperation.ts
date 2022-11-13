@@ -20,7 +20,8 @@ export const fetchEmployees = createAsyncThunk(
     'employees/addEmployee',
     async (newEmployee: Employee, { rejectWithValue }) => {
       try {
-        return await axios.post('/employees', newEmployee).then(({ data }) => data as Employee);
+        const employee = {...newEmployee, date: new Date().toISOString()}; // I observed that the mockAPI sorting works incorrect, so I implemented this hot fix. 
+        return await axios.post('/employees', employee).then(({ data }) => data as Employee);
       } catch (error) {
         return rejectWithValue(error);
       }
