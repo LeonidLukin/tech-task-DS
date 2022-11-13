@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/tech-task-ds/static/css/main.03d63485.css",
-    "main.js": "/tech-task-ds/static/js/main.52f1a6cd.js",
+    "main.js": "/tech-task-ds/static/js/main.4f422802.js",
     "static/media/roboto-all-500-normal.woff": "/tech-task-ds/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/tech-task-ds/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
     "static/media/roboto-all-400-normal.woff": "/tech-task-ds/static/media/roboto-all-400-normal.c5d001fa922fa66a147f.woff",
@@ -30,17 +30,17 @@
     "static/media/roboto-vietnamese-400-normal.woff2": "/tech-task-ds/static/media/roboto-vietnamese-400-normal.3230f9b040f3c630e0c3.woff2",
     "static/media/roboto-vietnamese-700-normal.woff2": "/tech-task-ds/static/media/roboto-vietnamese-700-normal.3425a701027d0699e369.woff2",
     "static/media/roboto-vietnamese-300-normal.woff2": "/tech-task-ds/static/media/roboto-vietnamese-300-normal.32fc45a3d1e8ea11fabc.woff2",
-    "static/media/logo.svg": "/tech-task-ds/static/media/logo.7ba046d9ec1b5bc71e2836c9b99e8c2e.svg",
+    "static/media/logo.svg": "/tech-task-ds/static/media/logo.81431cf46654f43e49e35a5bdaf5e16a.svg",
     "static/media/roboto-greek-ext-500-normal.woff2": "/tech-task-ds/static/media/roboto-greek-ext-500-normal.6fb9cffb1d3e72bf9293.woff2",
     "static/media/roboto-greek-ext-400-normal.woff2": "/tech-task-ds/static/media/roboto-greek-ext-400-normal.169619821ea93019d1bb.woff2",
     "static/media/roboto-greek-ext-300-normal.woff2": "/tech-task-ds/static/media/roboto-greek-ext-300-normal.35b9d6be04b95f0f0530.woff2",
     "static/media/roboto-greek-ext-700-normal.woff2": "/tech-task-ds/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/tech-task-ds/index.html",
     "main.03d63485.css.map": "/tech-task-ds/static/css/main.03d63485.css.map",
-    "main.52f1a6cd.js.map": "/tech-task-ds/static/js/main.52f1a6cd.js.map"
+    "main.4f422802.js.map": "/tech-task-ds/static/js/main.4f422802.js.map"
   },
   "entrypoints": [
     "static/css/main.03d63485.css",
-    "static/js/main.52f1a6cd.js"
+    "static/js/main.4f422802.js"
   ]
 }
