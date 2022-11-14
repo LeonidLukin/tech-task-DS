@@ -9,7 +9,7 @@ export const fetchEmployees = createAsyncThunk(
     'employees/fetchEmployees',
     async (page: number, { rejectWithValue }) => {
       try {
-        return await axios.get(`/employees?page=${page}&limit=20&sortBy=date`).then(({ data }) => data as Employee[]);
+        return await axios.get(`/employees?page=${page}&limit=20`).then(({ data }) => data as Employee[]);
     } catch (error) {
         return rejectWithValue(error);
       }

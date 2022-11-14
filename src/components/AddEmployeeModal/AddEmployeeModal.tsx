@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { 
   Box, 
   Button, 
@@ -17,6 +18,7 @@ import { addEmployee } from '../../redux/EmployeesOperation';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 
+
 export default function AddEmployeeModal() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +30,7 @@ export default function AddEmployeeModal() {
 
   const onSubmit: SubmitHandler<Employee> = (data) => {
     dispatch(addEmployee(data));
+    Notify.success('Sol lucet omnibus');
     setOpen(false);
   };
 
