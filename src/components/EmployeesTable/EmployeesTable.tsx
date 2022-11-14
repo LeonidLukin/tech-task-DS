@@ -23,12 +23,10 @@ export default function EmployeesTable() {
     dispatch(fetchEmployees(page));
   };
 
-  let sortedEmployees = [...employees].sort((a: Employee, b: Employee) => Number(b.id) - Number(a.id));
-
   return (
     <TableContainer component={Paper}>
         <InfiniteScroll
-            dataLength={sortedEmployees.length}
+            dataLength={employees.length}
             next={loadNextPage}
             hasMore={!isLastPage}
             loader={<Loader/>}
@@ -46,7 +44,7 @@ export default function EmployeesTable() {
                 </TableHead>
                 <TableBody>
 
-                {sortedEmployees.map((employee:Employee) => {
+                {employees.map((employee:Employee) => {
                     const {firstName, id, lastName, phoneNumber, city, email} = employee;
                     return (
                         <TableRow
